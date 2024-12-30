@@ -3,10 +3,11 @@ from classmodule import Item, User
 
 def update_money(curr_dt, income_dt, user: User):
     dt_difference = curr_dt - income_dt
-    if (dt_difference >= 1):
+    secs = dt_difference.total_seconds()
+    if (secs >= 1):
         income_dt = curr_dt
-        new_money = user.get_money() + (user.get_income() * dt_difference)
-        new_money *= user.get_interest() ** dt_difference
+        new_money = user.get_money() + (user.get_income() * secs)
+        new_money *= user.get_interest() ** secs
         new_money = min(new_money, 100000000)
 
         user.set_money(new_money)

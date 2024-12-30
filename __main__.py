@@ -1,10 +1,10 @@
 import csv
-import time
+import datetime as dt
 from classmodule import Item, User
 from funcmodule import update_money, create_item
 
 def main():    
-    income_dt = time.time()
+    income_dt = dt.datetime.now()
 
     market = []
     with open('data/market.csv', 'r') as file:
@@ -37,7 +37,7 @@ def main():
     while (True):
         user_input = input("Enter your next command: ")
         user_input = user_input.lower()
-        curr_dt = time.time()
+        curr_dt = dt.datetime.now()
         income_dt = update_money(curr_dt, income_dt, user) # Update money every loop
 
         if (user_input == "exit"):
@@ -73,7 +73,7 @@ def main():
                 if (valid_id == False):
                     print("Not a valid id.")
                 else:
-                    curr_dt = time.time()
+                    curr_dt = dt.datetime.now()
                     income_dt = update_money(curr_dt, income_dt, user)
                     money = user.get_money()
                     stats = bought_item.get_stats()
