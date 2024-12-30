@@ -87,9 +87,7 @@ def main():
                         user.set_money(money - float(stats[0]))
                         market.remove(curr_item)
                         with open('data/market.csv', 'w', newline="") as file:
-                            header = ["id", "cost", "income", "interest"]
                             market_writer = csv.writer(file)
-                            market_writer.writerow(header)
                             max_id += 1
                             item = create_item(max_id)
                             market.append(item.get_info())
