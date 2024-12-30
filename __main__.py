@@ -65,8 +65,10 @@ def main():
             item_id = item_id.lower()
             if (item_id != "exit"):
                 valid_id = False
+                curr_item = []
                 for item in market[1:]:
                     if (str(item[0]) == str(item_id)):
+                        curr_item = item
                         bought_item = Item(int(item[0]), [float(item[1]), float(item[2]), float(item[3])])
                         valid_id = True
                         break
@@ -83,6 +85,15 @@ def main():
                     else:
                         user.set_item(bought_item)
                         user.set_money(money - float(stats[0]))
+                        market.remove(curr_item)
+                        with open('data/market.csv', 'w', newline="") as file:
+                            header = ["id", "cost", "income", "interest"]
+                            market_writer = csv.writer(file)
+                            market_writer.writerow(header)
+                            max_id += 1
+                            item = create_item(max_id)
+                            market.append(item.get_info())
+                            market_writer.writerows(market)
                         print("Successfully purchased.")
 
         elif (user_input == "craft"):
