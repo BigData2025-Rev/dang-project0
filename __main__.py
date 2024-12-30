@@ -45,7 +45,7 @@ def main():
             break
         
         elif (user_input == "help"):
-            print("help        Prints a list of commands\nmoney       Prints your current amount of money\nstats       Prints your income and interest\nmarket      Prints list of current items in market\nbuy         Purchase an item from the current market\nexit        Exits the program")
+            print("help        Prints a list of commands\nmoney       Prints your current amount of money\nstats       Prints your income and interest\nmarket      Prints list of current items in market\nbuy         Purchase an item from the current market\ncraft       Spend 10% of an item's cost to improve the stats\nexit        Exits the program")
             continue
 
         elif (user_input == "money"):
