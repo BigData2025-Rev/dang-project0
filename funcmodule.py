@@ -22,3 +22,11 @@ def create_item(id: int):
     cost = (income ** (1 + ((interest - 1) * 5))) * random.randint(2, 5)
 
     return Item(id, [cost, income, interest])
+
+def craft_item(item: Item, type):
+    stats = item.get_stats()
+    if (type == "income"):
+        stats[1] = stats[1] * (20 + random.random()) / 20
+    elif (type == "interest"):
+        stats[2] = stats[2] * (200 + random.random()) / 200
+    item.set_stats(stats)

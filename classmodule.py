@@ -5,6 +5,9 @@ class Item:
 
     def get_id(self):
         return self.id
+    
+    def set_stats(self, stats):
+        self.stats = stats
 
     def get_stats(self):
         return self.stats
@@ -36,3 +39,6 @@ class User:
     
     def get_interest(self):
         return self.interest
+    
+    def get_item(self):
+        return self.item

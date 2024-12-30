@@ -1,7 +1,7 @@
 import csv
 import datetime as dt
 from classmodule import Item, User
-from funcmodule import update_money, create_item
+from funcmodule import update_money, create_item, craft_item
 
 def main():    
     income_dt = dt.datetime.now()
@@ -29,7 +29,7 @@ def main():
                 market.append(item.get_info())
                 market_writer.writerow(item.get_info())
 
-    item = Item(0, [0,1.0,1.01])
+    item = Item(0, [100,1.0,1.01])
     user = User(item)
 
     user_input = ""
@@ -62,7 +62,8 @@ def main():
 
         elif (user_input == "buy"):
             item_id = input("Enter the id of the item you would like to buy: ")
-            if (item_id.lower() != "exit"):
+            item_id = item_id.lower()
+            if (item_id != "exit"):
                 valid_id = False
                 for item in market[1:]:
                     if (str(item[0]) == str(item_id)):
@@ -83,6 +84,26 @@ def main():
                         user.set_item(bought_item)
                         user.set_money(money - float(stats[0]))
                         print("Successfully purchased.")
+
+        elif (user_input == "craft"):
+            affix = input("Craft on income or interest? ")
+            affix = affix.lower()
+            if (affix in ["income", "interest"]):
+                money = user.get_money()
+                user_item = user.get_item()
+                cost = user_item.get_stats()[0] / 10
+                if (money < cost):
+                    print('Not enough currency. ${:.2f} needed to craft.'.format(cost))
+                else:
+                    old_stats = user_item.get_stats().copy()
+                    craft_item(user_item, affix)
+                    user.set_money(money - cost)
+                    if (affix == "income"):
+                        print('Success. Old income: ${:.2f}. New income: ${:.2f}'.format(old_stats[1], user_item.get_stats()[1]))
+                    elif (affix == "interest"):
+                        print('Success. Old interest: {:.2f}%. New interest: {:.2f}%'.format(old_stats[2], user_item.get_stats()[2]))
+            else:
+                print("Not a valid command.")
 
         else:
             print("Error: invalid command. Type 'help' to get a list of commands.")
